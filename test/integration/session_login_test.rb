@@ -3,7 +3,7 @@ require 'test_helper'
 class SessionLoginTest < ActionDispatch::IntegrationTest
   def setup
     @user=users(:rajeev)
-end
+  end
 test " login failure and flash" do
     get login_path
     assert_template 'new'
@@ -39,6 +39,10 @@ end
 test "cookies not saved when not remember me" do
     log_in_as @user,remember_me: '0'
     assert_nil cookies['remember_me']
+end
+test "check remember token" do
+    log_in_as @user,remember_me: "1"
+    assert_equal assigns(:user).remember_token,cookies['remember_token']
 end
 
 end
