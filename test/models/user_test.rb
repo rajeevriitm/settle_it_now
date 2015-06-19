@@ -61,4 +61,8 @@ foo@bar_baz.com foo@bar+baz.com]
     assert_not @user.valid?
   end
 
+  test "authenticated? returns false when remember digest nil" do
+    assert_not @user.authenticated?('')
+  end
+
 end

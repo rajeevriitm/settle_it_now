@@ -1,6 +1,6 @@
 module ApplicationHelper
   def title_display(title="")
-    base="fuck you"
+    base="welcome"
     if title==""
       return base
     else

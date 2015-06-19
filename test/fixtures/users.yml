@@ -1,1 +1,4 @@
-#empty to correct fixture error
+rajeev:
+  name: raj
+  email: rajeev@email.com
+  password_digest: <%= User.digest("password") %>
