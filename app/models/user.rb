@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token
+  attr_accessor :remember_token,:activation_token
+  before_create :create_activation_digest
   before_save {email.downcase!}
   validates :name,presence: true,length: {maximum: 50}
   validates :email,presence:true,length:{maximum: 250}
@@ -26,13 +27,30 @@ class User < ActiveRecord::Base
   end
 
   #authenticate the remember digest with token
-  def authenticated?(remember_token)
-    BCrypt::Password.new(remember_digest).is_password?(remember_token) unless remember_digest.nil?
+  def authenticated?(attribute,token)
+    digest=self.send("#{attribute}_digest")
+    BCrypt::Password.new(digest).is_password?(token) unless digest.nil?
   end
 
   #deletes remember digest
   def forget
     update_attribute(:remember_digest,nil)
   end
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+  def activate_account
+      self.update_attribute(:activated,true)
+      self.update_attribute(:activated_at,Time.zone.now)
+  end
+
+
+  private
+
+  def create_activation_digest
+    self.activation_token=User.new_token
+    self.activation_digest=User.digest(activation_token)
+  end
+
 
 end

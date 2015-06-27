@@ -1,9 +1,10 @@
 User.create!(name:"rajeevr",email:"rajeevriitm@gmail.com",
-                    password:"sadsad",password_confirmation:"sadsad",admin: true)
+                    password:"sadsad",password_confirmation:"sadsad",admin: true,activated:true,activated_at:Time.zone.now)
 99.times do |n|
   name=Faker::Name.name
   email = "rajeev-#{n+1}@railstutorial.org"
-  User.create!(name:name,email:email,password:"password",password_confirmation:"password")
+  User.create!(name:name,email:email,password:"password",password_confirmation:"password",
+                      activated:true,activated_at:Time.zone.now)
 end
 
 
