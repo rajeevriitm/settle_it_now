@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token,:activation_token,:reset_token
+  has_many :microposts,dependent: :destroy
   before_create :create_activation_digest
   before_save {email.downcase!}
   validates :name,presence: true,length: {maximum: 50}
@@ -53,6 +54,11 @@ class User < ActiveRecord::Base
   end
   def password_reset_expired?
     reset_sent_time < 2.hours.ago
+  end
+
+#micropost methods
+  def feed
+    Micropost.where("user_id=?",id)
   end
 
   private
