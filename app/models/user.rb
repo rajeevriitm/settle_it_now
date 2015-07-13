@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token,:activation_token,:reset_token
   has_many :microposts,dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",foreign_key: "follower_id",dependent: :destroy
+  has_many :following, through: :active_relationships,source: :followed
+  has_many :passive_relationships,class_name: "Relationship",foreign_key: "followed_id",dependent: :destroy
+  has_many :followers, through: :passive_relationships
   before_create :create_activation_digest
   before_save {email.downcase!}
   validates :name,presence: true,length: {maximum: 50}
@@ -9,7 +13,6 @@ class User < ActiveRecord::Base
   validates :email, format: {with: VALID_EMAIL_REGEX},uniqueness: {case_sensitive: false}
   has_secure_password
   validates :password, length:{minimum: 6},allow_blank: true
-
   #creates a password digest for user model
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
@@ -58,7 +61,19 @@ class User < ActiveRecord::Base
 
 #micropost methods
   def feed
-    Micropost.where("user_id=?",id)
+    following_ids="SELECT followed_id FROM relationships WHERE follower_id= :user_id"
+    Micropost.where("user_id IN (#{following_ids}) OR user_id=:user_id",user_id: id)
+  end
+
+  #relationships methods
+  def follow(user)
+    active_relationships.create(followed_id: user.id)
+  end
+  def following?(user)
+    following.include?(user)
+  end
+  def unfollow(user)
+    active_relationships.find_by(followed_id: user.id).destroy
   end
 
   private

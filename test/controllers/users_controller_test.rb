@@ -49,5 +49,19 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_url
   end
+  test "should be looged in to see followers" do
+    get :followers, id: @user
+    assert_redirected_to login_url
+    log_in_as(@user)
+    get :followers, id: @user
+    assert_response :success
+  end
+    test "should be looged in to see following" do
+    get :following, id: @user
+    assert_redirected_to login_url
+    log_in_as(@user)
+    get :following, id: @user
+    assert_response :success
+  end
 
 end
