@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
       flash[:info]="Please check mail"
-      redirect_to root_url
+      redirect_to edit_account_activation_url(@user.activation_token,email:@user.email)
       # login @user
       # flash[:success]="Welome and enjoy"
       # redirect_to @user

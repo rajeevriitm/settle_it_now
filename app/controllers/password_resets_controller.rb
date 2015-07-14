@@ -11,7 +11,7 @@ class PasswordResetsController < ApplicationController
       @user.create_reset_digest
       @user.send_reset_email
       flash[:info]="Reset email sent"
-      redirect_to root_url
+      redirect_to edit_password_reset_url(@user.reset_token,email:@user.email)
     else
       flash.now[:danger]="User doesnt exist"
       render 'new'
@@ -26,7 +26,7 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     elsif @user.update_attributes(user_params)
       login @user
-      flash[:success]="Password resdet"
+      flash[:success]="Password reset"
       redirect_to @user
     else
       render 'edit'
