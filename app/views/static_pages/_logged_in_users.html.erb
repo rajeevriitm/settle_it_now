@@ -6,12 +6,15 @@
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
-    <section class="micropost_form">
-      <%= render 'shared/micropost_form' %>
+    <section class="following-list">
+      <%= render 'shared/following_list'  %>
     </section>
   </aside>
   <div class="col-md-8">
-    <h3>Micropost Feed</h3>
+    <h3>Discussion Feed</h3>
+    <section class="micropost_form">
+      <%= render 'shared/micropost_form' %>
+    </section>
     <%= render 'shared/feed' %>
   </div>
 </div>

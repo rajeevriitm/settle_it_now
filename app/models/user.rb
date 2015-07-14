@@ -75,6 +75,9 @@ class User < ActiveRecord::Base
   def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end
+  def selected_followers
+    followers.sample(10)
+  end
 
   private
 

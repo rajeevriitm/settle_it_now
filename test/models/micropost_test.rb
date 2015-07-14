@@ -16,10 +16,6 @@ class MicropostTest < ActiveSupport::TestCase
     @micropost.content="    "
     assert_not @micropost.valid?
   end
-  test "content should be less than 140" do
-    @micropost.content="a"*141
-    assert_not @micropost.valid?
-  end
   test "contents in order of time" do
     assert_equal Micropost.first,microposts(:most_recent)
   end
