@@ -287,6 +287,46 @@ span.picture {
     float: left;
      // padding-left: 5px;
      padding-right: 5px;
-    }
-  }
+   }
+ }
 }
+
+//answers
+.answers{
+  list-style: none;
+}
+.submit-button{
+  overflow: hidden;
+  width: 15%;
+  float: right;
+  margin-top: -15px;
+}
+.post-button{
+  width: 20%;
+  float: right
+}
+.answer-field{
+  width:92%;
+  float: right;
+}
+li.answer-list{
+  margin-left: 10px;
+  margin-top: -10px;
+}
+#answer-response{
+  font-size: 120%;
+  font-family: "new century schoolbook","Arial Black";
+  display: block;
+  margin-top: 15px;
+}
+.timestamp-answer{
+  display: block;
+  color: $gray-light;
+  // margin-top: 3px;
+}
+span#answer-user{
+  font-size: 125%;
+  font-weight: bold;
+  margin-top:20px;
+}
+

@@ -4,7 +4,7 @@
   <%= f.text_area :content, placeholder: "Start a discussion..." %>
 </div>
 <span class="picture">
-<section class="buttons-post">
+  <section class="buttons-post">
     <section  class="picture-tab">
       <%= f.file_field :picture,accept: 'image/jpeg,image/gif,image/png' %>
     </section>
@@ -12,8 +12,8 @@
       <%= f.submit "Post", class: "btn btn-primary" %>
     </section>
   </section>
-
 </span>
+
 <script type="text/javascript">
   $('#micropost_picture').bind('change', function() {
     size_in_megabytes = this.files[0].size/1024/1024;

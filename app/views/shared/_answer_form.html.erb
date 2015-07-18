@@ -1,0 +1,10 @@
+<%= form_for(micropost.answers.build) do |f| %>
+<%= render 'shared/error_messages',object:f.object  %>
+<div class="answer-field">
+  <%= f.text_area :response, placeholder: "Your response..." %>
+  <%= f.hidden_field :micropost_id, value: micropost.id  %>
+<section  class="post-button">
+  <%= f.submit "Respond", class: "btn btn-primary" %>
+</section>
+</div>
+<% end %>

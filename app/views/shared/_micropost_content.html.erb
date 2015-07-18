@@ -1,0 +1,20 @@
+<li id="micropost-<%= micropost.id  %>" >
+  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+  <div class="replace">
+    <span class="content"><%= micropost.content %>
+      <%= image_tag micropost.picture.url if micropost.picture? %>
+    </span>
+  </div>
+  <span class="timestamp">Asked by <%= link_to micropost.user.name, micropost.user %></span>
+  <span class="timestamp">
+    Posted <%= time_of_creation(micropost.created_at)%> .
+    <% if current_user?(micropost.user) %>
+    <%=  link_to "edit",edit_micropost_path(micropost), remote: true %>
+    <%=  link_to "delete",micropost,method: :delete,data:{confirm: "waana delete?"} %>
+    <% end %>
+    <div class="submit-button">
+    <span class="answer-button-<%= micropost.id %>"><div class="btn btn-primary">Respond</div></span>
+    </div>
+
+  </span>
+</li>

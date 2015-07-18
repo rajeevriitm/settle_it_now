@@ -26,5 +26,10 @@ class MicropostInterfaceTest < ActionDispatch::IntegrationTest
     end
     get user_path(users(:raji))
     assert_select 'a', text: 'delete', count: 0
+    # assert_select 'a[href=?]',edit_micropost_url
+  end
+  test "jquery edit micropost" do
+    log_in_as(@user)
+    xhr :get,edit_micropost_path(microposts(:orange))
   end
 end

@@ -5,9 +5,10 @@ Rails.application.routes.draw do
       get :following,:followers
     end
   end
+  resources :answers,only:[:new,:create,:edit,:update]
   resources :account_activations,only:[:edit]
   resources :password_resets,only:[:new,:create,:edit,:update]
-  resources :microposts,only:[:create,:destroy]
+  resources :microposts,only:[:edit,:create,:destroy,:update]
   resources :relationships,only: [:create,:destroy]
   root 'static_pages#home'
   get 'home',            to:      'static_pages#home'

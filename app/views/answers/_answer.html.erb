@@ -1,0 +1,16 @@
+<li  class=answer-list>
+  <% if answer.response %>
+  <span class="user-data">
+  <%= link_to(gravatar_for(answer.user,size: 38), answer.user ) %>
+    <span id= answer-user><%= link_to answer.user.name, answer.user %></span>
+    <span class="timestamp-answer">
+      Posted <%= time_of_creation(answer.created_at)%> .
+    </span>
+
+  </span>
+  <span id=answer-response>
+    <%= answer.response  %>
+  </span>
+  <br/>
+  <% end %>
+</li>

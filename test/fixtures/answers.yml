@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+resp2:
+  micropost: orange
+  response: "sad"
+  user_id: rajeev
+
+resp3:
+  micropost_id: ants
+  response: "MyText"
+  user_id: raji

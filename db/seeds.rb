@@ -1,17 +1,29 @@
 User.create!(name:"Rajeev.R",email:"rajeevriitm@gmail.com",
-                    password:"sadsad",password_confirmation:"sadsad",admin: true,activated:true,activated_at:Time.zone.now)
+  password:"sadsad",password_confirmation:"sadsad",admin: true,activated:true,activated_at:Time.zone.now)
 99.times do |n|
   name=Faker::Name.name
   email = "Rajeev-#{n+1}@railstutorial.org"
   User.create!(name:name,email:email,password:"password",password_confirmation:"password",
-                      activated:true,activated_at:Time.zone.now)
+    activated:true,activated_at:Time.zone.now)
 end
 
 #creating microposts
 users=User.order(:created_at).take(6)
 50.times do
-  content=Faker::Lorem.sentence(5)
+  content=Faker::Lorem.paragraph(sentence_count= 2)
   users.each {|user| user.microposts.create!(content: content)}
+end
+
+#creating answers
+microposts=Micropost.order(:created_at).take(5)
+users=User.order(:created_at).take(5)
+3.times do
+  users.each { |user|
+    content=Faker::Lorem.paragraph(sentence_count=7)
+    microposts.each {|micropost|
+      user.answers.create!(response: content,micropost_id: micropost.id)
+    }
+  }
 end
 
 #adding followers and followeds

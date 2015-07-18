@@ -1,13 +1,18 @@
-<li id="micropost-<%= micropost.id  %>" >
-  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
-  <span class="content"><%= micropost.content %>
-  <%= image_tag micropost.picture.url if micropost.picture? %>
-  </span>
-   <span class="user">started by <%= link_to micropost.user.name, micropost.user %></span>
-  <span class="timestamp">
-    Posted <%= time_of_creation(micropost.created_at)%> .
-    <% if current_user?(micropost.user) %>
-    <%=  link_to "delete",micropost,method: :delete,data:{confirm: "waana delete?"} %>
-    <% end %>
-  </span>
-</li>
+<%= render 'shared/micropost_content',micropost: micropost  %>
+<section class="answer-<%= micropost.id %>">
+  <%= render 'shared/answer_form' , micropost: micropost %>
+</section>
+<% if micropost.answers.any?  %>
+<% answers=micropost.answers %>
+<ol class="answers" >
+<%= render answers  %>
+</ol>
+<% end %>
+
+<script type="text/javascript">
+  $('.answer-<%= micropost.id %>').hide();
+  $('.answer-button-<%= micropost.id %>').click(function(){
+    $(this).hide();
+    $('.answer-<%= micropost.id %>').slideDown('slow');
+  });
+</script>
