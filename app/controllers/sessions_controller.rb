@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       if @user.activated?
         login @user
         remember @user if params[:session][:remember_me]=="1"
-        redirect_back_or @user
+        redirect_back_or home_url
       else
         flash[:warning]="Check mail to activate"
         redirect_to root_url
