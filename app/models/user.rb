@@ -80,6 +80,15 @@ class User < ActiveRecord::Base
     followers.sample(10)
   end
 
+  #search
+  def self.users_list(search,page)
+    if search
+      @users=User.where('name like ?',"%#{search}%").paginate(page: page)
+    else
+      @users=User.all.paginate(page: page)
+    end
+  end
+
   private
 
   def create_activation_digest
