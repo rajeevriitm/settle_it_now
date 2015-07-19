@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
     active_relationships.find_by(followed_id: user.id).destroy
   end
   def selected_followers
-    followers.sample(10)
+    following.sample(10)
   end
 
   #search
