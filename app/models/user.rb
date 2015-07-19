@@ -77,13 +77,13 @@ class User < ActiveRecord::Base
     active_relationships.find_by(followed_id: user.id).destroy
   end
   def selected_followers
-    following.sample(10)
+    following
   end
 
   #search
   def self.users_list(search,page)
     if search
-      @users=User.where('name like ?',"%#{search}%").paginate(page: page)
+      @users=User.where('lower(name) like ?',"%#{search.downcase}%").paginate(page: page)
     else
       @users=User.all.paginate(page: page)
     end

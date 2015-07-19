@@ -4,8 +4,9 @@ class AccountActivationsController < ApplicationController
     if user && !user.activated? && user.authenticated?(:activation,params[:id])
       user.activate_account
       login user
-      flash[:success]="Account activated"
-      redirect_to user_path(user)
+      flash[:success]="Account activated... Search to find more people.."
+      user.follow(User.first)
+      redirect_to root_url
     else
       flash[:danger]="Invalid activation link"
       redirect_to root_url
