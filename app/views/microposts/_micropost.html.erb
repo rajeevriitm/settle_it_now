@@ -1,3 +1,4 @@
+<li>
 <%= render 'shared/micropost_content',micropost: micropost  %>
 <section class="answer-<%= micropost.id %>">
   <%= render 'shared/answer_form' , micropost: micropost %>
@@ -8,7 +9,7 @@
 <%= render answers  %>
 </ol>
 <% end %>
-
+</li>
 <script type="text/javascript">
   $('.answer-<%= micropost.id %>').hide();
   $('.answer-button-<%= micropost.id %>').click(function(){

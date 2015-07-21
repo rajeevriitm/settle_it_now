@@ -1,0 +1,20 @@
+<div class="row">
+  <aside class="col-md-3">
+    <section class="user_info">
+      <%= render 'shared/user_info' %>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+    <section class="following-list">
+      <%= render 'shared/following_list'  %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h3>Discuss..</h3>
+<span class="microposts">
+
+    <%= render @micropost %>
+</span>
+  </div>
+</div>

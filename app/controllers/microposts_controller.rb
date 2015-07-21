@@ -1,6 +1,12 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user,only:[:create,:destroy,:edit,:update]
+  before_action :logged_in_user,only:[:create,:destroy,:edit,:update,:show]
   before_action :correct_user,only: [:destroy,:edit,:update]
+  def show
+    @micropost=Micropost.find_by(params[:id])
+    @answers=@micropost.answers
+    @users=current_user.selected_followers
+
+  end
   before_action :previous_url,only: :edit
   def create
     @micropost=current_user.microposts.build(micropost_params)
@@ -39,11 +45,11 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 #private methods
-  private
+private
 #allow only required params
-  def micropost_params
-    params.require(:micropost).permit(:content,:picture)
-  end
+def micropost_params
+  params.require(:micropost).permit(:content,:picture)
+end
   #check if the loggined user issues request
   def correct_user
     @micropost=current_user.microposts.find_by(id: params[:id])
