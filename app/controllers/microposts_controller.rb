@@ -45,7 +45,7 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
   def more
-    @micropost=Micropost.find_by(id: params[:id])
+    @micropost=Micropost.find_by(params[:id])
     @answers=@micropost.answers
     # redirect_to root_url
     respond_to do |format|
