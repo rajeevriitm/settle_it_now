@@ -3,8 +3,8 @@
   <section class="answer-<%= micropost.id %>">
     <%= render 'shared/answer_form' , micropost: micropost %>
   </section>
-  <% if micropost.answers.any?  %>
   <% answers=micropost.answers.take(5) %>
+  <% if  answers.any?  %>
   <div class="load-more-<%= micropost.id %>" >
     <ol class="answers" >
       <%= render answers  %>
@@ -22,3 +22,4 @@ $('.answer-button-<%= micropost.id %>').click(function(){
   $('.answer-<%= micropost.id %>').slideDown('slow');
 });
 </script>
+
