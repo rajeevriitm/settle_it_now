@@ -1,5 +1,5 @@
 <li  class=answer-list>
-  <% if answer.response %>
+  <% if answer.user %>
   <span class="user-data">
   <%= link_to(gravatar_for(answer.user,size: 38), answer.user ) %>
     <span id= answer-user><%= link_to answer.user.name, answer.user %></span>

@@ -11,15 +11,17 @@ end
 users=User.order(:created_at).take(6)
 50.times do
   content=Faker::Lorem.paragraph(sentence_count= 2)
-  users.each {|user| user.microposts.create!(content: content)}
+  users.each do |user|
+    user.microposts.create!(content: content)
+  end
 end
 
 #creating answers
-microposts=Micropost.order(:created_at).take(5)
+microposts=Micropost.order(:created_at).take(20)
 users=User.order(:created_at).take(5)
 3.times do
   users.each { |user|
-    content=Faker::Lorem.paragraph(sentence_count=7)
+    content=Faker::Lorem.paragraph(sentence_count=15)
     microposts.each {|micropost|
       user.answers.create!(response: content,micropost_id: micropost.id)
     }

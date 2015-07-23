@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :answers,only:[:new,:create,:edit,:update]
   resources :account_activations,only:[:edit]
   resources :password_resets,only:[:new,:create,:edit,:update]
-  resources :microposts,only:[:edit,:create,:destroy,:update,:show]
+  resources :microposts,only:[:edit,:create,:destroy,:update,:show,:more] do
+    member do
+      get :more
+    end
+  end
   resources :relationships,only: [:create,:destroy]
   root 'static_pages#home'
   get 'home',            to:      'static_pages#home'

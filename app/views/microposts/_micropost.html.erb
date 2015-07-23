@@ -1,19 +1,24 @@
-<li>
-<%= render 'shared/micropost_content',micropost: micropost  %>
-<section class="answer-<%= micropost.id %>">
-  <%= render 'shared/answer_form' , micropost: micropost %>
-</section>
-<% if micropost.answers.any?  %>
-<% answers=micropost.answers %>
-<ol class="answers" >
-<%= render answers  %>
-</ol>
-<% end %>
+<li class="micro-dist">
+  <%= render 'shared/micropost_content',micropost: micropost  %>
+  <section class="answer-<%= micropost.id %>">
+    <%= render 'shared/answer_form' , micropost: micropost %>
+  </section>
+  <% if micropost.answers.any?  %>
+  <% answers=micropost.answers.take(5) %>
+  <div class="load-more-<%= micropost.id %>" >
+    <ol class="answers" >
+      <%= render answers  %>
+    </ol>
+    <%= link_to "Load more",more_micropost_path(micropost),remote: true,class: "btn btn-info btn-sm btn-block btn-mine" %>
+  </div>
+  <% end %>
 </li>
+
 <script type="text/javascript">
-  $('.answer-<%= micropost.id %>').hide();
-  $('.answer-button-<%= micropost.id %>').click(function(){
-    $(this).hide();
-    $('.answer-<%= micropost.id %>').slideDown('slow');
-  });
+// to answer by respond button
+$('.answer-<%= micropost.id %>').hide();
+$('.answer-button-<%= micropost.id %>').click(function(){
+  $(this).hide();
+  $('.answer-<%= micropost.id %>').slideDown('slow');
+});
 </script>

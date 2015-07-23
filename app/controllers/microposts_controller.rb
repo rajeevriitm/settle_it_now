@@ -44,6 +44,15 @@ class MicropostsController < ApplicationController
     flash[:success]="deleted Successfully"
     redirect_to request.referrer || root_url
   end
+  def more
+    @micropost=Micropost.find_by(id: params[:id])
+    @answers=@micropost.answers
+    # redirect_to root_url
+    respond_to do |format|
+      format.html {redirect_to @micropost}
+      format.js
+    end
+  end
 #private methods
 private
 #allow only required params

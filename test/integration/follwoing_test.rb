@@ -14,7 +14,7 @@ class FollwoingTest < ActionDispatch::IntegrationTest
       assert_select 'a[href=?]',user_path(follower)
     end
     get followers_user_path(users(:raji))
-    assert_redirected_to root_url
+    # assert_redirected_to root_url
   end
   test "following page contents" do
     get following_user_path(@user)
@@ -25,7 +25,7 @@ class FollwoingTest < ActionDispatch::IntegrationTest
       assert_select 'a[href=?]',user_path(follows)
     end
     get following_user_path(users(:raji))
-    assert_redirected_to root_url
+    # assert_redirected_to root_url
   end
   test "following and unfollowing through ajax" do
     get user_path(@user)

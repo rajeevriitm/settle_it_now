@@ -12,9 +12,29 @@
   </aside>
   <div class="col-md-8">
     <h3>Discuss..</h3>
-<span class="microposts">
-
-    <%= render @micropost %>
-</span>
+    <span class="microposts">
+      <li class="micro-dist">
+        <%= render 'shared/micropost_content',micropost: @micropost  %>
+        <section class="answer-<%= @micropost.id %>">
+          <%= render 'shared/answer_form' , micropost: @micropost %>
+        </section>
+        <% if @answers.any?  %>
+        <div class="load-more-<%= @micropost.id %>" >
+          <ol class="answers" >
+            <%= render @answers  %>
+          </ol>
+        </div>
+        <% end %>
+      </li>
+    </span>
   </div>
 </div>
+
+<script type="text/javascript">
+// to answer by respond button
+$('.answer-<%= @micropost.id %>').hide();
+$('.answer-button-<%= @micropost.id %>').click(function(){
+  $(this).hide();
+  $('.answer-<%= @micropost.id %>').slideDown('slow');
+});
+</script>

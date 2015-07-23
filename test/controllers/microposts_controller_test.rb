@@ -24,5 +24,8 @@ class MicropostsControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_url
   end
+  test "more path" do
+    get :more,id: @micropost;
+  end
 
 end
