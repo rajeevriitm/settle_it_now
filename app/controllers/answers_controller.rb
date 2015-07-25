@@ -6,15 +6,15 @@ class AnswersController < ApplicationController
   def create
     @answer=current_user.answers.build(answer_params)
     if @answer.save
-      flash[:success]="Successfully posted"
+      flash[:success]="Your response has been posted"
       respond_to do |format|
         format.html {redirect_to request.referrer || root_url}
         format.js
       end
     else
-      render 'static_pages/about'
+      flash[:danger]="Response cant be blank"
+      redirect_to root_url
     end
-
   end
 
   private

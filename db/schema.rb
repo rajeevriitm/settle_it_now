@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714205550) do
+ActiveRecord::Schema.define(version: 20150723142249) do
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "action_id"
+    t.string   "action_type"
+    t.integer  "micropost_id"
+    t.integer  "owner_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "activities", ["action_id"], name: "index_activities_on_action_id"
+  add_index "activities", ["action_type", "action_id"], name: "index_activities_on_action_type_and_action_id"
+  add_index "activities", ["micropost_id"], name: "index_activities_on_micropost_id"
+  add_index "activities", ["owner_id"], name: "index_activities_on_owner_id"
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id"
 
   create_table "answers", force: :cascade do |t|
     t.integer  "micropost_id"

@@ -1,8 +1,12 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user,only:[:create,:destroy,:edit,:update,:show]
+  before_action :logged_in_user,only:[:create,:destroy,:edit,:update,:show,:more]
   before_action :correct_user,only: [:destroy,:edit,:update]
   def show
+<<<<<<< HEAD
     @micropost=Micropost.find(params[:id])
+=======
+    @micropost=Micropost.find_by(id: params[:id])
+>>>>>>> activity_model
     @answers=@micropost.answers
     @users=current_user.selected_followers
 
@@ -28,7 +32,11 @@ class MicropostsController < ApplicationController
     end
   end
   def update
+<<<<<<< HEAD
     @micropost=Micropost.find( params[:id])
+=======
+    @micropost=Micropost.find_by(id: params[:id])
+>>>>>>> activity_model
     if @micropost.update_attributes(micropost_params)
       flash[:success]="Successfully edited"
       redirect_to previous_url

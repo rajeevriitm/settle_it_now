@@ -7,11 +7,11 @@ two:
   followed: rajeev3
 
 three:
-  follower: raeev3
+  follower: rajeev3
   followed: rajeev
 
 four:
-  follower: raeev2
+  follower: rajeev2
   followed: rajeev3
 
 five:

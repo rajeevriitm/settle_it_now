@@ -4,12 +4,17 @@
     <%= render 'shared/answer_form' , micropost: micropost %>
   </section>
   <% answers=micropost.answers.take(5) %>
+<<<<<<< HEAD
   <% if  answers.any?  %>
+=======
+  <% if answers.any?  %>
+>>>>>>> activity_model
   <div class="load-more-<%= micropost.id %>" >
     <ol class="answers" >
       <%= render answers  %>
     </ol>
-    <%= link_to "Load more",more_micropost_path(micropost),remote: true,class: "btn btn-info btn-sm btn-block btn-mine" %>
+    <%= link_to("Load more answers",more_micropost_path(micropost),
+          remote: true,class: "btn btn-info btn-sm btn-block btn-mine") if answers.count>4 %>
   </div>
   <% end %>
 </li>

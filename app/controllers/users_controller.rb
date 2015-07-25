@@ -1,22 +1,18 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user,only: [:index,:edit, :update,:destroy,:following,:followers]
+  before_action :logged_in_user,only: [:index,:edit, :update,:destroy,:following,:followers,:show]
   before_action :correct_user, only: [:edit,:update]
   before_action :admin_user, only:[:destroy]
-
+  before_action :users_list,only: [:index]
   def index
-    @users=User.users_list(params[:search],params[:page])
   end
-
   def new
     @user=User.new
   end
-
   def show
     @user=User.find(params[:id])
-    @microposts=@user.microposts.paginate(page: params[:page])
+    @microposts=@user.own_feed.paginate(page: params[:page])
     @users=@user.selected_followers
   end
-
   def create
     @user= User.new(user_params)
     if @user.save
@@ -30,10 +26,8 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
   def edit
   end
-
   def update
     @user=User.find(params[:id])
     if @user.update_attributes(user_params)
@@ -43,13 +37,11 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-
   def destroy
     User.find(params[:id]).destroy
     flash[:success]="User deleted"
     redirect_to users_url
   end
-
   def following
     @title="following"
     @user=User.find_by(id: params[:id])
@@ -64,11 +56,9 @@ class UsersController < ApplicationController
   end
 
   private
-
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation)
   end
-
   def correct_user
     @user=User.find(params[:id])
     flash[:danger]="You dont have acees"
@@ -76,6 +66,13 @@ class UsersController < ApplicationController
   end
   def admin_user
     redirect_to root_url unless current_user.admin?
+  end
+    def users_list
+    if params[:search]
+      @users=User.where('lower(name) like ?',"%#{params[:search].downcase}%").paginate(page: params[:page])
+    else
+      @users=User.all.paginate(page: page)
+    end
   end
 
 
