@@ -78,7 +78,7 @@ def own_feed
 end
 def feed
   Micropost.joins("INNER JOIN activities ON (activities.micropost_id = microposts.id)").
-  where('activities.user_id= ?',id).order('activities.created_at DESC').group('microposts.id')
+  where('activities.user_id= ?',id).order('activities.created_at DESC').group('microposts.id,activities.created_at')
 
 #  "LEFT JOIN `votes` ON `votes`.`v_id` = `document`.`id`"
 #   feed_query="SELECT microposts.* FROM microposts INNER JOIN activities ON activities.micropost_id = microposts.id
