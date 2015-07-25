@@ -61,7 +61,6 @@ class UsersController < ApplicationController
   end
   def correct_user
     @user=User.find(params[:id])
-    flash[:danger]="You dont have acees"
     redirect_to root_url unless current_user?(@user)
   end
   def admin_user
@@ -71,7 +70,7 @@ class UsersController < ApplicationController
     if params[:search]
       @users=User.where('lower(name) like ?',"%#{params[:search].downcase}%").paginate(page: params[:page])
     else
-      @users=User.all.paginate(page: page)
+      @users=User.all.paginate(page: params[:page])
     end
   end
 

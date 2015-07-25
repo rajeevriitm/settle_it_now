@@ -4,10 +4,7 @@
     <%= render 'shared/answer_form' , micropost: micropost %>
   </section>
   <% answers=micropost.answers.take(5) %>
-  <% if  answers.any?  %>
-=======
   <% if answers.any?  %>
->>>>>>> activity_model
   <div class="load-more-<%= micropost.id %>" >
     <ol class="answers" >
       <%= render answers  %>
