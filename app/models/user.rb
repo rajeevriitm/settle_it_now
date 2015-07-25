@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :passive_relationships
   has_many :answers,dependent: :destroy
   has_many :activities,dependent: :destroy
+  has_many :own_activities, class_name: "Activity", foreign_key: "owner_id",dependent: :destroy
   before_create :create_activation_digest
   before_save {email.downcase!}
   validates :name,presence: true,length: {maximum: 50}
