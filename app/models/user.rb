@@ -73,7 +73,7 @@ end
 #   activity_microposts.group(:micropost_id)
 # end
 def own_feed
-  Micropost.joins("INNER JOIN `activities` ON `activities`.`micropost_id` = `microposts`.`id`").
+  Micropost.joins("INNER JOIN activities ON (activities.micropost_id = microposts.id)").
   where('activities.owner_id= ?',id).order('activities.created_at DESC').group('activities.micropost_id')
 end
 def feed
