@@ -7,6 +7,15 @@ User.create!(name:"Rajeev.R",email:"rajeevriitm@gmail.com",
     activated:true,activated_at:Time.zone.now)
 end
 
+#adding followers and followeds
+users=User.all
+user=users.first
+following=users[2..50]
+followers=users[3..40]
+following.each {|followed| user.follow(followed)}
+followers.each {|follower| follower.follow(user)}
+
+
 #creating microposts
 users=User.order(:created_at).take(6)
 50.times do
@@ -28,10 +37,3 @@ users=User.order(:created_at).take(5)
   }
 end
 
-#adding followers and followeds
-users=User.all
-user=users.first
-following=users[2..50]
-followers=users[3..40]
-following.each {|followed| user.follow(followed)}
-followers.each {|follower| follower.follow(user)}

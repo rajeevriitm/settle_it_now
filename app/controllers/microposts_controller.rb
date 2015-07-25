@@ -1,8 +1,8 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user,only:[:create,:destroy,:edit,:update,:show]
+  before_action :logged_in_user,only:[:create,:destroy,:edit,:update,:show,:more]
   before_action :correct_user,only: [:destroy,:edit,:update]
   def show
-    @micropost=Micropost.find_by(params[:id])
+    @micropost=Micropost.find_by(id: params[:id])
     @answers=@micropost.answers
     @users=current_user.selected_followers
 
@@ -21,14 +21,14 @@ class MicropostsController < ApplicationController
     end
   end
   def edit
-    @micropost=Micropost.find_by(params[:id])
+    @micropost=Micropost.find_by(id: params[:id])
     respond_to do |format|
       format.html {redirect_to root_url}
       format.js
     end
   end
   def update
-    @micropost=Micropost.find_by(params[:id])
+    @micropost=Micropost.find_by(id: params[:id])
     if @micropost.update_attributes(micropost_params)
       flash[:success]="Successfully edited"
       redirect_to previous_url
@@ -45,7 +45,7 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
   def more
-    @micropost=Micropost.find_by(params[:id])
+    @micropost=Micropost.find(params[:id])
     @answers=@micropost.answers
     # redirect_to root_url
     respond_to do |format|
