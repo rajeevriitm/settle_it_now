@@ -10,7 +10,7 @@
     Posted <%= time_of_creation(micropost.created_at)%> .
     <% if current_user?(micropost.user) %>
     <%=  link_to "edit",edit_micropost_path(micropost), remote: true %>
-    <%=  link_to "delete",micropost,method: :delete,data:{confirm: "waana delete?"} %>
+    <%=  link_to "delete",micropost,method: :delete,data:{confirm: "are you sure?"} %>
     <% end %>
     <div class="submit-button">
     <span class="answer-button-<%= micropost.id %>"><div class="btn btn-primary">Respond</div></span>
