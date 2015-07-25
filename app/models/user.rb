@@ -62,40 +62,14 @@ end
     reset_sent_time < 2.hours.ago
   end
 
-#micropost methods
-# def feed
-#   following_ids="SELECT followed_id FROM relationships WHERE follower_id=:user_id"
-#   answered_id="SELECT micropost_id FROM answers WHERE user_id IN (#{following_ids}) OR user_id=:user_id"
-#   Micropost.where("user_id IN (#{following_ids}) OR user_id=:user_id OR id IN (#{answered_id})",user_id: id)
-# end
-
-# def feed
-#   activity_microposts.group(:micropost_id)
-# end
 def own_feed
-  Micropost.select('DISTINCT ON(microposts.id) *').joins("INNER JOIN activities ON
+  Micropost.select('DISTINCT ON (microposts.id) *').joins("INNER JOIN activities ON
     (activities.micropost_id = microposts.id)").where('activities.owner_id= ?',id).order('activities.created_at DESC')
-
-  # Micropost.joins("INNER JOIN activities ON (activities.micropost_id = microposts.id)").
-  # where('activities.owner_id= ?',id).order('activities.created_at DESC').group('microposts_id,activities.created_at')
 end
 def feed
   Micropost.select('DISTINCT ON (microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").
   where('activities.user_id= ?',id).order('activities.created_at DESC')
 
-
-  # Micropost.joins("INNER JOIN activities ON (activities.micropost_id = microposts.id)").where('activities.user_id= ?',id).
-  # order('activities.created_at DESC').select("DISTINCT ON (microposts.id,activities.created_at), *")
-  # Micropost.joins("INNER JOIN activities ON (activities.micropost_id = microposts.id)").
-  # where('activities.user_id= ?',id).order('activities.created_at DESC').group('microposts.id,activities.created_at')
-
-#  "LEFT JOIN `votes` ON `votes`.`v_id` = `document`.`id`"
-#   feed_query="SELECT microposts.* FROM microposts INNER JOIN activities ON activities.micropost_id = microposts.id
-#   WHERE (activities.user_id= 1)  ORDER BY activities.created_at DESC"
-# ActiveRecord::Base.connection.execute(query)
-
-# Micropost.select('microposts.*, activities.created_at').joins("INNER JOIN activities ON (activities.micropost_id = microposts.id)").
-# where('activities.user_id= ?',id).order('activities.created_at DESC').uniq
 end
   #relationships methods
   def follow(user)
