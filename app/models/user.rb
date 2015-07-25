@@ -63,11 +63,10 @@ end
   end
 
 def own_feed
-  Micropost.select('DISTINCT ON (microposts.id) *').joins("INNER JOIN activities ON
-    (activities.micropost_id = microposts.id)").where('activities.owner_id= ?',id).order('activities.created_at DESC')
+  Micropost.select('DISTINCT ON (activities.created_at,microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").where('activities.owner_id= ?',id).order('activities.created_at DESC')
 end
 def feed
-  Micropost.select('DISTINCT ON (microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").
+  Micropost.select('DISTINCT ON (activities.created_at,microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").
   where('activities.user_id= ?',id).order('activities.created_at DESC')
 
 end
