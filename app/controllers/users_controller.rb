@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
   def show
     @user=User.find(params[:id])
-    @microposts=@user.own_feed.paginate(page: params[:page])
+    @microposts=@user.feed.paginate(page: params[:page])
     @users=@user.selected_followers
   end
   def create

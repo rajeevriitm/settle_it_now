@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   has_many :passive_relationships,class_name: "Relationship",foreign_key: "followed_id",dependent: :destroy
   has_many :followers, through: :passive_relationships
   has_many :answers,dependent: :destroy
-  has_many :activities,dependent: :destroy
-  has_many :own_activities, class_name: "Activity", foreign_key: "owner_id",dependent: :destroy
+  # has_many :activities,dependent: :destroy
+  # has_many :own_activities, class_name: "Activity", foreign_key: "owner_id",dependent: :destroy
   before_create :create_activation_digest
   before_save {email.downcase!}
   validates :name,presence: true,length: {maximum: 50}
@@ -61,15 +61,21 @@ end
   def password_reset_expired?
     reset_sent_time < 2.hours.ago
   end
+  # micropost methods
+  def feed
+    following_ids="SELECT followed_id FROM relationships WHERE follower_id=:user_id"
+    answered_id="SELECT micropost_id FROM answers WHERE user_id IN (#{following_ids}) OR user_id=:user_id"
+    Micropost.where("user_id IN (#{following_ids}) OR user_id=:user_id OR id IN (#{answered_id})",user_id: id)
+  end
 
-def own_feed
-  Micropost.select('DISTINCT ON (activities.created_at,microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").where('activities.owner_id= ?',id).order('activities.created_at DESC')
-end
-def feed
-  Micropost.select('DISTINCT ON (activities.created_at,microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").
-  where('activities.user_id= ?',id).order('activities.created_at DESC')
+# def own_feed
+#   Micropost.select('DISTINCT ON (activities.created_at,microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").where('activities.owner_id= ?',id).order('activities.created_at DESC')
+# end
+# def feed
+#   Micropost.select('DISTINCT ON (activities.created_at,microposts.id) *').joins("INNER JOIN activities ON(activities.micropost_id = microposts.id)").
+#   where('activities.user_id= ?',id).order('activities.created_at DESC')
 
-end
+# end
   #relationships methods
   def follow(user)
     active_relationships.create(followed_id: user.id)

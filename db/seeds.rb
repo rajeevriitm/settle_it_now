@@ -26,7 +26,7 @@ users=User.order(:created_at).take(6)
 end
 
 #creating answers
-microposts=Micropost.order(:created_at).take(15)
+microposts=Micropost.order(:created_at).take(10)
 users=User.order(:created_at).take(6)
 4.times do
   users.each { |user|
